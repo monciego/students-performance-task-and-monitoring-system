@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Login route
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth.login');
+})->middleware('guest');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard');

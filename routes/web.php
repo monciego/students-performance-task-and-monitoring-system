@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ClassesController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,14 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard');
+});
+
+Route::group(['middleware' => ['auth', 'role:teacher']], function() {
+    Route::resource('class', ClassesController::class)->only('index', 'show', 'create', 'store');
+});
+
+Route::group(['middleware' => ['auth', 'role:user']], function() {
+    Route::resource('classes', StudentController::class)->only('index', 'show', 'create', 'store');
 });
 
 // Route::get('/dashboard', function () {

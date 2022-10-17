@@ -14,7 +14,8 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        return view('teacher.class.index');
+        $classes = Classes::with('user')->where('user_id', auth()->id())->get();
+        return view('teacher.class.index', compact('classes'));
     }
 
     /**

@@ -11,6 +11,17 @@
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700" rel="stylesheet" />
 
+    {{-- Style --}}
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

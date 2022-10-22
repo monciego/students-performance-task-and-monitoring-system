@@ -23,9 +23,6 @@
             @empty
             @include('user.classes.create')
             @endforelse
-
-
-
         </div>
     </div>
 </div>

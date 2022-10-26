@@ -9,6 +9,11 @@
                         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                             {{ __($class->class_name) }}
                         </h2>
+                        <p class="mt-2">Class code:
+                            <span class="font-medium">
+                                {{ $class->class_code }}
+                            </span>
+                        </p>
                     </div>
                     <div>
                         <a href="{{ route('create.subject', $class->id) }}"

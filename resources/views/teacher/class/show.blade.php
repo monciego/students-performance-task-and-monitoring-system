@@ -1,14 +1,26 @@
 <x-app-layout>
     @section('title', isset($class) ? $class->class_name : 'Class')
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        {{ __($class->class_name) }}
-                    </h2>
-                </div>
 
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white flex items-center justify-between border-b border-gray-200">
+                    <div>
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                            {{ __($class->class_name) }}
+                        </h2>
+                    </div>
+                    <div>
+                        <a href="{{ route('create.subject', $class->id) }}"
+                            class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-slate-700 rounded hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300">
+                            <svg class="w-3 h-3 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                                <path
+                                    d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                            </svg>
+                            <span class="xs:block text-sm ml-2">Create Subject</span>
+                        </a>
+                    </div>
+                </div>
                 <div class="p-6 grid grid-cols-6 gap-6">
                     @foreach ($subjects as $subject)
                     <div
@@ -22,7 +34,7 @@
                             <div class="flex mt-4 space-x-3 md:mt-6">
                                 <a href=""
                                     class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 ">
-                                    View Subject
+                                    Manage Subject
                                 </a>
                             </div>
                         </div>

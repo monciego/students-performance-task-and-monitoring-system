@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classes;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,11 +67,11 @@ class StudentController extends Controller
     {
         $class_code = Classes::where('id', $class->id)->value('class_code');
         $student_code = Student::where('user_id', Auth::id())->where('class_id', $class->id)->value('class_code');
+        $subjects = Subject::with('classes')->where('class_id', $class->id)->latest()->get();
 
         if($class_code ===  $student_code ) {
-            return view('user.classes.show', [
-                'class' => $class
-            ]);
+            return view('user.classes.show', compact('class', 'subjects'));
+
         } else {
             abort(403, 'Unauthorized');
         }

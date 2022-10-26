@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
+use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClassesController extends Controller
 {
@@ -68,9 +70,11 @@ class ClassesController extends Controller
      * @param  \App\Models\Classes  $classes
      * @return \Illuminate\Http\Response
      */
-    public function show(Classes $classes)
+    public function show(Classes $class)
     {
-        //
+        $class = Classes::where('user_id', Auth::id())->findOrFail($class->id);
+        $subjects = Subject::with('classes')->where('class_id', $class->id)->latest()->get();
+       return view('teacher.class.show', compact('class', 'subjects'));
     }
 
     /**

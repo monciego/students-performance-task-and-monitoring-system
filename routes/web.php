@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,8 @@ Route::group(['middleware' => ['auth']], function() {
 
 Route::group(['middleware' => ['auth', 'role:teacher']], function() {
     Route::resource('class', ClassesController::class)->only('index', 'show', 'create', 'store');
+    Route::resource('subject', SubjectController::class)->only('index', 'show', 'create', 'store');
+    Route::get('/class/create-subject/{class}', [SubjectController::class, 'createSubject'])->name('create.subject');
 });
 
 Route::group(['middleware' => ['auth', 'role:user']], function() {

@@ -51,12 +51,14 @@ class SubjectController extends Controller
     {
         $formFields = $request->validate([
             'class_id' => 'required',
+            'user_id' => 'required',
             'subject_name' =>  'required',
             'subject_details' => 'nullable',
          ]);
 
          Subject::create([
             'class_id' => $request->class_id,
+            'user_id' => $request->user_id,
             'subject_name' => $request->subject_name,
             'subject_details' => $request->subject_details,
         ]);
@@ -72,7 +74,9 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        //
+        $subject = Subject::with('classes')->where('user_id', auth()->id())->findOrFail($subject->id);
+        // where auth id = auth ->id
+        return view('teacher.class.subject.index', compact('subject'));
     }
 
     /**

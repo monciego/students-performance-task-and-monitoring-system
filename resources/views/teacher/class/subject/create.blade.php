@@ -10,6 +10,8 @@
                         <!-- Class Name -->
                         <x-text-input id="class_id" class="block mt-1 w-full" type="hidden" name="class_id" value="{{
                             $class->id }}" />
+                        <x-text-input id="user_id" class="block mt-1 w-full" type="hidden" name="user_id" value="{{
+                           Auth::user()->id }}" />
                         <div>
                             <x-input-label class="mb-2" for="subject_name" :value="__('Subject Name')" />
 

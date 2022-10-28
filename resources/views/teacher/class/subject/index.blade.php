@@ -8,7 +8,7 @@
                         <h2 class="text-2xl font-bold">{{ $subject->subject_name }}</h2>
                     </div>
                     <div>
-                        <a href=""
+                        <a href="{{ route('upload.activity', $subject->id) }}"
                             class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-slate-700 rounded hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300">
                             <svg class="w-3 h-3 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                                 <path
@@ -21,7 +21,28 @@
 
                 {{-- --}}
                 <div class="p-6 grid grid-cols-6 gap-6">
-
+                    @foreach ($activities as $activity)
+                    <div
+                        class="col-span-6 sm:col-span-3 lg:col-span-2 w-full  bg-white rounded-lg border border-gray-200 shadow-md ">
+                        <div class="flex flex-col items-center py-10">
+                            <div
+                                class="mb-3 w-32 rounded-md flex items-center justify-center h-24 shadow-lg bg-slate-700 text-white">
+                                {{ substr($activity->activity_name, 0, 1) }}
+                            </div>
+                            <h5 class="mb-1 text-xl font-medium text-gray-900 ">{{ $activity->activity_name }}</h5>
+                            <span class="text-sm text-gray-500"><span class="font-medium">Uploaded by:</span> {{
+                                $activity->user->name }}</span>
+                            <span class="text-sm text-gray-500"><span class="font-medium">Upload date:</span> {{
+                                $activity->created_at }}</span>
+                            <div class="flex mt-4 space-x-3 md:mt-6">
+                                <a href=""
+                                    class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 ">
+                                    View Activity
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
 
 

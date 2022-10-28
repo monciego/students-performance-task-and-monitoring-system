@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
-use App\Models\Classes;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SubjectController extends Controller
+class ActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,15 +30,14 @@ class SubjectController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for uploading activity.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createSubject(Classes $class)
+    public function uploadActivity(Subject $subject)
     {
-        // dd($class->id);
-        $class = Classes::where('user_id', Auth::id())->findOrFail($class->id);
-        return view('teacher.class.subject.create', compact('class'));
+        $subject = Subject::where('user_id', Auth::id())->findOrFail($subject->id);
+        return view('teacher.class.subject.activities.create', compact('subject'));
     }
 
     /**
@@ -51,43 +49,48 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $formFields = $request->validate([
-            'class_id' => 'required',
+            'subject_id' => 'required',
             'user_id' => 'required',
-            'subject_name' =>  'required',
-            'subject_details' => 'nullable',
+            'activity_name' =>  'required',
+            'activity_details' => 'nullable',
+            'ativity_file' => 'nullable',
          ]);
 
-         Subject::create([
-            'class_id' => $request->class_id,
+         Activity::create([
+            'subject_id' => $request->subject_id,
             'user_id' => $request->user_id,
-            'subject_name' => $request->subject_name,
-            'subject_details' => $request->subject_details,
+            'activity_name' => $request->activity_name,
+            'activity_details' => $request->activity_details,
+            'activity_file' =>  $this->storeFile($request),
         ]);
 
-        return redirect(route('class.index'));
+        return redirect()->back();
+    }
+
+    private function storeFile($request) {
+        $newFileName = uniqid() . '-' . $request->activity_name . '.' . $request->activity_file->extension();
+        $request->activity_file->move(public_path('storage/activities'), $newFileName);
+        return $newFileName;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Activity  $activity
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show(Activity $activity)
     {
-        $subject = Subject::with('classes')->where('user_id', auth()->id())->findOrFail($subject->id);
-        $activities = Activity::with('subject')->where('user_id', auth()->id())->latest()->get();
-        // where auth id = auth ->id
-        return view('teacher.class.subject.index', compact('subject', 'activities'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Activity  $activity
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subject $subject)
+    public function edit(Activity $activity)
     {
         //
     }
@@ -96,10 +99,10 @@ class SubjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Activity  $activity
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, Activity $activity)
     {
         //
     }
@@ -107,10 +110,10 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Activity  $activity
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy(Activity $activity)
     {
         //
     }

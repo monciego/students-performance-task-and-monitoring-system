@@ -76,7 +76,7 @@ class SubjectController extends Controller
     public function show(Subject $subject)
     {
         $subject = Subject::with('classes')->where('user_id', auth()->id())->findOrFail($subject->id);
-        $activities = Activity::with('subject')->where('user_id', auth()->id())->latest()->get();
+        $activities = Activity::with('subject')->where('user_id', auth()->id())->where('subject_id', $subject->id)->latest()->get();
         // where auth id = auth ->id
         return view('teacher.class.subject.index', compact('subject', 'activities'));
     }

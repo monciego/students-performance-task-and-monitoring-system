@@ -20,7 +20,7 @@
                             </div>
                             <h5 class="mb-1 text-xl font-medium text-gray-900 ">{{ $subject->subject_name }}</h5>
                             <div class="flex mt-4 space-x-3 md:mt-6">
-                                <a href=""
+                                <a href="{{ route('activities.show', $subject->id) }}"
                                     class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 ">
                                     View Subject
                                 </a>

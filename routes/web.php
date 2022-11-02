@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ClassesController;
+use App\Http\Controllers\StudentActivityController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth', 'role:teacher']], function() {
 
 Route::group(['middleware' => ['auth', 'role:user']], function() {
     Route::resource('classes', StudentController::class)->only('index', 'show', 'create', 'store');
+    Route::resource('activities', StudentActivityController::class)->only('index', 'show', 'create', 'store');
 });
 
 // Route::get('/dashboard', function () {

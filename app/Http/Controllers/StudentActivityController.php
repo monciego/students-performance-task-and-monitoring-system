@@ -62,6 +62,12 @@ class StudentActivityController extends Controller
         }
     }
 
+    public function downloadFileStudent($file) {
+        $file_path = public_path('storage/activities/' . $file);
+        return response()->download($file_path);
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *

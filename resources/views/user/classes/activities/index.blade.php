@@ -6,7 +6,7 @@
                 <div class="p-6 bg-white flex items-center justify-between border-b border-gray-200">
                     <div>
                         {{-- <h2 class="text-2xl font-bold">{{ $subject->subject_name }}</h2> --}}
-                        <h2 class="text-2xl font-bold">Subject name test</h2>
+                        <h2 class="text-2xl font-bold">Activities (Files)</h2>
                     </div>
                 </div>
 
@@ -27,9 +27,9 @@
                                 {{ \Carbon\Carbon::parse($activity->created_at)->isoFormat('MMM Do YYYY')}}
                             </span>
                             <div class="flex mt-4 space-x-3 md:mt-6">
-                                <a href=""
+                                <a href="{{ url('/download',$activity->activity_file) }}"
                                     class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 ">
-                                    View Activity
+                                    Download
                                 </a>
                             </div>
                         </div>

@@ -31,6 +31,8 @@
         @include('layouts.navigation')
         <!-- Page Content -->
         <main>
+            <x-success-message />
+            <x-danger-message />
             {{ $slot }}
         </main>
     </div>

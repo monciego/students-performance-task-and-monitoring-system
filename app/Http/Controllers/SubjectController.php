@@ -64,7 +64,7 @@ class SubjectController extends Controller
             'subject_details' => $request->subject_details,
         ]);
 
-        return redirect(route('class.index'));
+        return redirect(route('class.index'))->with('success-message', 'Subject Created Successfully!');
     }
 
     /**

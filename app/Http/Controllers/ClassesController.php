@@ -49,7 +49,7 @@ class ClassesController extends Controller
             'class_code' => $this->generateUniqueCode(),
         ]);
 
-        return redirect(route('class.create'));
+        return redirect(route('class.create'))->with('success-message', 'Class Created Successfully!');
     }
 
      /**

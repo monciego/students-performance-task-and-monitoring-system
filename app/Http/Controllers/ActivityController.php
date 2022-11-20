@@ -64,7 +64,7 @@ class ActivityController extends Controller
             'activity_file' =>  $this->storeFile($request),
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success-message', 'Activities Created Successfully!');
     }
 
     private function storeFile($request) {

@@ -37,12 +37,13 @@ Route::group(['middleware' => ['auth', 'role:teacher']], function() {
     Route::resource('activity', ActivityController::class)->only('index', 'show', 'create', 'store');
     Route::get('/class/subject/upload-activity/{subject}', [ActivityController::class, 'uploadActivity'])->name('upload.activity');
     Route::get('/download-teacher/{file}',[ActivityController::class, 'downloadTeacher']);
+    Route::get('/download-file/{file}',[ActivityController::class, 'downloadActivityFile']);
 });
 
 Route::group(['middleware' => ['auth', 'role:user']], function() {
     Route::resource('classes', StudentController::class)->only('index', 'show', 'create', 'store');
     Route::resource('activities', StudentActivityController::class)->only('index', 'show', 'create', 'store');
-        Route::get('/download/{file}',[StudentActivityController::class, 'downloadFileStudent']);
+    Route::get('/download/{file}',[StudentActivityController::class, 'downloadFileStudent']);
 });
 
 // Route::get('/dashboard', function () {

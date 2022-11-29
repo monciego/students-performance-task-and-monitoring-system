@@ -87,7 +87,15 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        //
+        return view('teacher.class.subject.activities.show', [
+            'activity' => $activity
+        ]);
+    }
+
+
+    public function downloadActivityFile($file) {
+        $file_path = public_path('storage/activities/' . $file);
+        return response()->download($file_path);
     }
 
     /**

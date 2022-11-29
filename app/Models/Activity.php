@@ -15,6 +15,9 @@ class Activity extends Model
         'activity_name',
         'activity_file',
         'activity_details',
+        'activity_instruction',
+        'points',
+        'due_date',
     ];
 
     public function subject() {

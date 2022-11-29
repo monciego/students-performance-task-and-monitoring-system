@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('activity_instruction')->nullable();
+            $table->string('points')->nullable();
+            $table->date('due_date')->nullable();
             $table->string('activity_name');
             $table->string('activity_file');
             $table->longText('activity_details')->nullable();

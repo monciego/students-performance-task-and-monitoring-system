@@ -54,6 +54,9 @@ class ActivityController extends Controller
             'activity_name' =>  'required',
             'activity_details' => 'nullable',
             'ativity_file' => 'nullable',
+            'activity_instruction' => 'nullable',
+            'points' => 'nullable',
+            'due_date' => 'nullable',
          ]);
 
          Activity::create([
@@ -61,6 +64,9 @@ class ActivityController extends Controller
             'user_id' => $request->user_id,
             'activity_name' => $request->activity_name,
             'activity_details' => $request->activity_details,
+            'activity_instruction' => $request->activity_instruction,
+            'points' => $request->points,
+            'due_date' => $request->due_date,
             'activity_file' =>  $this->storeFile($request),
         ]);
 

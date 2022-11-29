@@ -27,9 +27,13 @@
                                 {{ \Carbon\Carbon::parse($activity->created_at)->isoFormat('MMM Do YYYY')}}
                             </span>
                             <div class="flex mt-4 space-x-3 md:mt-6">
-                                <a href="{{ url('/download',$activity->activity_file) }}"
+                                {{-- <a href="{{ url('/download',$activity->activity_file) }}"
                                     class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 ">
                                     Download
+                                </a> --}}
+                                <a href="{{ route('activity.details', $activity) }}"
+                                    class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 ">
+                                    More Details
                                 </a>
                             </div>
                         </div>

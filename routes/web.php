@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth', 'role:teacher']], function() {
 Route::group(['middleware' => ['auth', 'role:user']], function() {
     Route::resource('classes', StudentController::class)->only('index', 'show', 'create', 'store');
     Route::resource('activities', StudentActivityController::class)->only('index', 'show', 'create', 'store');
+    Route::get('/activity-details/{activity}',[StudentActivityController::class, 'activityDetails'])->name('activity.details');
     Route::get('/download/{file}',[StudentActivityController::class, 'downloadFileStudent']);
 });
 

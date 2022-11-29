@@ -62,6 +62,14 @@ class StudentActivityController extends Controller
         }
     }
 
+
+    public function activityDetails(Activity $activity) {
+        return view('user.classes.activities.activity-details', [
+            'activity' => $activity
+        ]);
+    }
+
+
     public function downloadFileStudent($file) {
         $file_path = public_path('storage/activities/' . $file);
         return response()->download($file_path);

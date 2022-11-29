@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CategoryQuestionController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\ClassStudentsController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\StudentActivityController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -37,6 +39,11 @@ Route::group(['middleware' => ['auth', 'role:teacher']], function() {
     Route::resource('activity', ActivityController::class)->only('index', 'show', 'create', 'store');
     Route::get('/class/subject/upload-activity/{subject}', [ActivityController::class, 'uploadActivity'])->name('upload.activity');
     Route::get('/download-teacher/{file}',[ActivityController::class, 'downloadTeacher']);
+    Route::resource('category-question', CategoryQuestionController::class)->only('index', 'show', 'create', 'store');
+    Route::get('/create-category/{subject}', [CategoryQuestionController::class, 'createCategoryQuestion'])->name('question.category.create');
+    Route::get('/create-question/{category_question}', [QuestionController::class, 'createQuestion'])->name('question.create');
+    Route::get('/question/{category_question}', [QuestionController::class, 'questions'])->name('questions');
+     Route::resource('create-question', QuestionController::class)->only('index', 'show', 'create', 'store');
 });
 
 Route::group(['middleware' => ['auth', 'role:user']], function() {

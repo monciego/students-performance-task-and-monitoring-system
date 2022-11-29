@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\CategoryQuestion;
 use App\Models\Classes;
+use App\Models\Question;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,8 +79,9 @@ class SubjectController extends Controller
     {
         $subject = Subject::with('classes')->where('user_id', auth()->id())->findOrFail($subject->id);
         $activities = Activity::with('subject')->where('user_id', auth()->id())->where('subject_id', $subject->id)->latest()->get();
+        $questions = CategoryQuestion::with('question')->where('subject_id', $subject->id)->get();
         // where auth id = auth ->id
-        return view('teacher.class.subject.index', compact('subject', 'activities'));
+        return view('teacher.class.subject.index', compact('subject', 'activities', 'questions'));
     }
 
     /**

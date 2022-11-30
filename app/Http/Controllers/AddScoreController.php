@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Activity;
-use App\Models\Classes;
-use App\Models\Student;
 use App\Models\StudentUpload;
-use App\Models\Subject;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class StudentActivityController extends Controller
+class AddScoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,6 +15,36 @@ class StudentActivityController extends Controller
     public function index()
     {
         //
+    }
+
+
+    public function score(Request $request)
+    {
+                $data = StudentUpload::updateOrCreate([
+                    'activity_id' => $request->activity_id,
+                    'subject_id' => $request->subject_id
+                ]);
+                $data->activity_id = $request->activity_id;
+                $data->subject_id = $request->subject_id;
+                $data->score = $request->score;
+                  $data->save();
+/*
+        $validated = $request->validate([
+            'score' => 'required|string|max:12',
+        ]);
+
+         StudentUpload::updateOrCreate([
+             'user_id' => $request->user_id,
+             'activity_id' =>$request->activity_id,
+            'subject_id' => $request->subject_id,
+        ],[
+            'user_id' => $request->user_id,
+            'activity_id' => $request->activity_id,
+            'subject_id' => $request->subject_id,
+            'score' => $request->score,
+        ]); */
+        return redirect()->back()->with('success-message', 'Score Added');
+
     }
 
     /**
@@ -49,33 +74,10 @@ class StudentActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Classes $activity)
+    public function show($id)
     {
-         $class_code = Classes::where('id', $activity->id)->value('class_code');
-         $student_code = Student::where('user_id', Auth::id())->where('class_id', $activity->id)->value('class_code');
-
-        $activities = Activity::with('subject')->where('subject_id', $activity->id)->latest()->get();
-        if($class_code ===  $student_code ) {
-            return view('user.classes.activities.index', compact('activity', 'activities'));
-
-        } else {
-            abort(403, 'Unauthorized');
-        }
+        //
     }
-
-
-    public function activityDetails(Activity $activity) {
-        $activity = Activity::with('subject')->findOrFail($activity->id);
-        $studentUpload = StudentUpload::where('activity_id', $activity->id)->get();
-        return view('user.classes.activities.activity-details', compact('activity', 'studentUpload'));
-    }
-
-
-    public function downloadFileStudent($file) {
-        $file_path = public_path('storage/activities/' . $file);
-        return response()->download($file_path);
-    }
-
 
     /**
      * Show the form for editing the specified resource.

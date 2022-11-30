@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\AddScoreController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\ClassStudentsController;
 use App\Http\Controllers\StudentActivityController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentUploadController;
 use App\Http\Controllers\SubjectController;
+use App\Models\StudentUpload;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +41,9 @@ Route::group(['middleware' => ['auth', 'role:teacher']], function() {
     Route::get('/class/subject/upload-activity/{subject}', [ActivityController::class, 'uploadActivity'])->name('upload.activity');
     Route::get('/download-teacher/{file}',[ActivityController::class, 'downloadTeacher']);
     Route::get('/download-file/{file}',[ActivityController::class, 'downloadActivityFile']);
+    Route::get('/download-answer/{file}',[ActivityController::class, 'downloadAnswer']);
+    Route::get('/student-passed-activity/{activity}',[ActivityController::class, 'studentPassedActivity'])->name('student.passed-activity');
+    Route::post('/add-score',[AddScoreController::class, 'score'])->name('add.score');
 });
 
 Route::group(['middleware' => ['auth', 'role:user']], function() {
@@ -45,6 +51,7 @@ Route::group(['middleware' => ['auth', 'role:user']], function() {
     Route::resource('activities', StudentActivityController::class)->only('index', 'show', 'create', 'store');
     Route::get('/activity-details/{activity}',[StudentActivityController::class, 'activityDetails'])->name('activity.details');
     Route::get('/download/{file}',[StudentActivityController::class, 'downloadFileStudent']);
+    Route::resource('/upload-activity', StudentUploadController::class);
 });
 
 // Route::get('/dashboard', function () {

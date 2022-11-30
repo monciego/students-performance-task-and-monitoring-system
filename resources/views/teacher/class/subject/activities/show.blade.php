@@ -3,12 +3,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-                <div class="px-4 py-5 sm:px-6">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Activity Information</h3>
-                    @if ($activity->activity_instruction)
-                    <span class="font-medium">Instruction:</span> {{ $activity->activity_instruction }}
-                    @endif
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500"></p>
+                <div class="px-4 py-5 sm:px-6 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">Activity Information</h3>
+                        @if ($activity->activity_instruction)
+                        <span class="font-medium">Instruction:</span> {{ $activity->activity_instruction }}
+                        @endif
+                    </div>
+                    <div>
+                        <p class="mt-1 max-w-2xl text-sm ">
+                            <a href="{{ route('student.passed-activity', $activity->id) }}">Answers</a>
+                        </p>
+                    </div>
                 </div>
                 <div class="border-t border-gray-200">
                     <dl>
@@ -28,7 +34,7 @@
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="text-sm font-medium text-gray-500">Activity Details</dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Fugiat ipsum ipsum deserunt
+                            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                                 {{ $activity->activity_details }}
                             </dd>
                         </div>

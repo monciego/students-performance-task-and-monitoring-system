@@ -5,24 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class StudentUpload extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'subject_id',
         'user_id',
+        'score',
         'activity_id',
-        'activity_name',
-        'activity_file',
-        'activity_details',
-        'activity_instruction',
-        'points',
-        'due_date',
+        'file',
+        'comment'
     ];
 
     public function subject() {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function activity() {
+        return $this->belongsTo(Activity::class);
     }
 
     public function user() {

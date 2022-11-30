@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\StudentUpload;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,13 @@ class ActivityController extends Controller
     {
         $subject = Subject::where('user_id', Auth::id())->findOrFail($subject->id);
         return view('teacher.class.subject.activities.create', compact('subject'));
+    }
+
+    public function studentPassedActivity(Activity $activity)
+    {
+          $activity = Activity::findOrFail($activity->id);
+        $studentUploads = StudentUpload::with('user')->where('activity_id', $activity->id)->get();
+        return view('teacher.class.subject.activities.student-passed', compact('activity', 'studentUploads'));
     }
 
     /**
@@ -87,9 +95,15 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        return view('teacher.class.subject.activities.show', [
-            'activity' => $activity
-        ]);
+        $activity = Activity::findOrFail($activity->id);
+        $studentUploads = StudentUpload::with('user', 'activity')->where('activity_id', $activity->id)->get();
+        return view('teacher.class.subject.activities.show', compact('activity', 'studentUploads'));
+    }
+
+
+    public function downloadAnswer($file) {
+        $file_path = public_path('storage/answer/' . $file);
+        return response()->download($file_path);
     }
 
 

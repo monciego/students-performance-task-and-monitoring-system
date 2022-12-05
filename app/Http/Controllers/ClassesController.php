@@ -115,8 +115,9 @@ class ClassesController extends Controller
      * @param  \App\Models\Classes  $classes
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Classes $classes)
+    public function destroy(Classes $class)
     {
-        //
+        $class->delete();
+        return redirect('/class')->with('danger-message', 'Class Deleted Successfully');
     }
 }

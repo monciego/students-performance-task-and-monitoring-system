@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 fixed top-0 right-0 left-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -84,6 +84,16 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if (Auth::user()->hasRole('teacher'))
+            <x-responsive-nav-link :href="route('class.index')" :active="request()->routeIs('class.index')">
+                {{ __('Class') }}
+            </x-responsive-nav-link>
+            @endif
+            @if (Auth::user()->hasRole('user'))
+            <x-responsive-nav-link :href="route('classes.index')" :active="request()->routeIs('class.index')">
+                {{ __('Join Class') }}
+            </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

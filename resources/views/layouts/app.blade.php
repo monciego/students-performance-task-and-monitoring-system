@@ -30,7 +30,7 @@
     <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
         <!-- Page Content -->
-        <main>
+        <main class="py-12">
             <x-success-message />
             <x-danger-message />
             {{ $slot }}

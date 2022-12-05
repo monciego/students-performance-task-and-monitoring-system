@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 Route::group(['middleware' => ['auth', 'role:teacher']], function() {
-    Route::resource('class', ClassesController::class)->only('index', 'show', 'create', 'store');
+    Route::resource('class', ClassesController::class)->only('index', 'show', 'create', 'store', 'edit', 'update', 'destroy');
     Route::resource('subject', SubjectController::class)->only('index', 'show', 'create', 'store');
     Route::get('/class-students/{class}', [ClassStudentsController::class, 'classStudents'])->name('students');
     Route::resource('class-students', ClassStudentsController::class)->only('index', 'show', 'create', 'store');

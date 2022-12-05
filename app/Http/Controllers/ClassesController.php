@@ -83,9 +83,11 @@ class ClassesController extends Controller
      * @param  \App\Models\Classes  $classes
      * @return \Illuminate\Http\Response
      */
-    public function edit(Classes $classes)
+    public function edit(Classes $class)
     {
-        //
+        return view('teacher.class.edit', [
+            'class' => $class
+        ]);
     }
 
     /**
@@ -95,9 +97,16 @@ class ClassesController extends Controller
      * @param  \App\Models\Classes  $classes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Classes $classes)
+    public function update(Request $request, Classes $class)
     {
-        //
+          $formFields = $request->validate([
+            'class_name' => 'required|string|max:255',
+            'class_details' => 'nullable',
+        ]);
+
+        $class->update($formFields);
+
+        return back()->with('success-message', 'Class Updated Successfully!');
     }
 
     /**
